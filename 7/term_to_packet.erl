@@ -3,7 +3,8 @@
 
 term_to_packet(Term) ->
     A = term_to_binary(Term),
-    {N,T} = split_binary(A,4),
-    Packet = {N,T},
-    Packet.
+    Size = 8 * (byte_size(A) - 4),
+    <<First:32,Body:Size>> = A,
+    <<First>>.
+    %<<Body:40>>.
     
